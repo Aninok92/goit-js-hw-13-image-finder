@@ -10,7 +10,14 @@
   <body>
     <form class="search-form" id="search-form">
       <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
+      <button type="submit" class="btn">Search</button>
     </form>
+
+    <ul class="photo-cards js-photo-cards-container"></ul>
+
+    <button type="button" class="btn-load-more is-hidden" data-action="load-more">
+      <span class="label">Load More</span>
+    </button>
   </body>
   <script src="./index.js"></script>
 </html>
