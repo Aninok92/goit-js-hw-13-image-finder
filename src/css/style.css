@@ -19,7 +19,7 @@ img {
   height: auto;
 }
 
-img:hover {
+.small-image:hover {
   outline: 3px solid orange;
 }
 

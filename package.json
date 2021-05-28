@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "basiclightbox": "^5.0.4",
+    "spin.js": "^4.1.0",
     "src": "^1.1.2"
   }
 }

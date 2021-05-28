@@ -5,6 +5,10 @@ import { info } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/PNotify.css';
 import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
+import 'spin.js/spin.css';
+import { Spinner } from 'spin.js';
+import opts from './js/options';
 
 const imagesApiService = new ImagesApiService();
 
@@ -50,13 +54,21 @@ refs.photoCardsContainer.addEventListener('click', onClick);
 function onClick(e) {
   if (e.target.nodeName !== 'IMG') return;
   const largeimage = e.target.dataset.source;
-  basicLightbox
-    .create(
-      `
-    <img src="${largeimage}">
+  const lightBox = basicLightbox.create(
+    `
+    <img src="${largeimage}"  width="600">
+
+    <div id="spinner-root"></div>
 `,
-    )
-    .show();
+  );
+  lightBox.show();
+
+  const spinnerRoot = lightBox.element().querySelector('#spinner-root');
+  console.log(spinnerRoot);
+  const spinner = new Spinner(opts).spin(spinnerRoot);
+
+  const imgElement = lightBox.element().querySelector('img');
+  imgElement.addEventListener('load', () => spinner.stop());
 }
 
 function clearPhotoCardsMarcup() {
