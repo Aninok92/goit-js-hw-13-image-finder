@@ -1,4 +1,4 @@
-import NewsApiService from './js/apiService';
+import ImagesApiService from './js/apiService';
 import photoCardTml from './templates/photo-card.hbs';
 import './css/style.css';
 import { info } from '@pnotify/core';
@@ -6,7 +6,7 @@ import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/PNotify.css';
 import * as basicLightbox from 'basiclightbox';
 
-const newsApiService = new NewsApiService();
+const imagesApiService = new ImagesApiService();
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
@@ -22,16 +22,23 @@ function onSearch(e) {
 
   clearPhotoCardsMarcup();
   refs.loadMoreBtn.classList.remove('is-hidden');
-  newsApiService.query = e.currentTarget.elements.query.value;
-  if (newsApiService.query === '') {
+  imagesApiService.query = e.currentTarget.elements.query.value;
+  if (imagesApiService.query === '') {
     PNotify();
   }
-  newsApiService.resetPage();
-  newsApiService.fetchPhotoCards().then(appendPhotoCardsMarcup);
+  imagesApiService.resetPage();
+  imagesApiService
+    .fetchPhotoCards()
+    .then(appendPhotoCardsMarcup)
+    .catch(error => console.error(error));
 }
 
 function onLoadMore() {
-  newsApiService.fetchPhotoCards().then(appendPhotoCardsMarcup).then(scroll);
+  imagesApiService
+    .fetchPhotoCards()
+    .then(appendPhotoCardsMarcup)
+    .then(scroll)
+    .catch(error => console.error(error));
 }
 
 function appendPhotoCardsMarcup(hits) {
